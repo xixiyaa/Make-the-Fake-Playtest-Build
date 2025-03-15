@@ -30,14 +30,19 @@ class LoadFarm extends Phaser.Scene {
     // Load key
     this.load.image("key", "tile_0027.png");
 
+    // Load new character images instead of atlas
+    this.load.image("character_stay", "character_stay.png");
+    this.load.image("character_left", "character_left.png");
+    this.load.image("character_right", "character_right.png");
+
     // Characters
     this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
 
-    // Tilemaps
+    // Tilemaps and tilesheets
     this.load.image("tilemap_tiles_background", "tilemap-backgrounds_packed.png");
     this.load.image("tilemap_tiles_farm", "tilemap_packed_farm.png");
     this.load.image("tilemap_tiles", "tilemap_packed.png");
-    
+    this.load.image("back", "back.jpg");
     this.load.tilemapTiledJSON("farm", "farm.tmj");
 
     this.load.spritesheet("tilemap_sheet_background", "tilemap-backgrounds_packed.png", {
@@ -61,32 +66,7 @@ class LoadFarm extends Phaser.Scene {
     this.loadText = this.add.text(this.cameras.main.centerX, 150, 'Loading Level-1: Farm...', { font: '40px Arial', fill: '#ffffff' }).setOrigin(0.5);
     this.loadText = this.add.text(this.cameras.main.centerX, 200, 'Please wait...', { font: '20px Arial', fill: '#ffffff' }).setOrigin(0.5);
 
-    // Animations (walk, idle, jump)
-    this.anims.create({
-      key: 'walk',
-      frames: this.anims.generateFrameNames('platformer_characters', {
-        prefix: "tile_",
-        start: 0,
-        end: 1,
-        suffix: ".png",
-        zeroPad: 4
-      }),
-      frameRate: 15,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: 'idle',
-      defaultTextureKey: "platformer_characters",
-      frames: [ { frame: "tile_0000.png" } ],
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: 'jump',
-      defaultTextureKey: "platformer_characters",
-      frames: [ { frame: "tile_0001.png" } ],
-    });
+    // No animations are needed now since the character uses static images
 
     this.scene.start("farmScene");
   }
@@ -137,6 +117,8 @@ class LoadIndustrial extends Phaser.Scene {
     this.load.audio("heart", "heart.ogg");
 
     this.load.image("tilemap_tiles_industrial", "tilemap_packed_industrial.png");
+    this.load.image("back2", "back2.jpg");
+
     this.load.tilemapTiledJSON("industrial", "industrial.tmj");
     this.load.spritesheet("tilemap_sheet_industrial", "tilemap_packed_industrial.png", {
       frameWidth: 18,
@@ -164,7 +146,6 @@ class LoadBonus extends Phaser.Scene {
     this.load.setPath("./assets/");
     this.load.audio('jump2', 'Jump2.ogg');
 
-    this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
     this.load.tilemapTiledJSON("bonus", "bonus.tmj");
   }
 
