@@ -1,9 +1,23 @@
 "use strict";
 
+/*Created by: Xifan Luo(xluo46@ucsc.edu) and Xuan He(xhe83@ucsc.edu)
 /*
-  main.js holds your global variables, your Phaser configuration,
-  and the creation of the actual Phaser.Game instance. The rest of
-  your Scenes are defined in the other JS files.
+  main.js holds our global variables, Phaser configuration,
+  and the creation of the Phaser.Game instance.
+
+  -------------------------------------
+  MAJOR PHASER COMPONENTS USED IN GAME:
+  1) Arcade Physics
+     - We use `this.physics.add.sprite(...)`, collision, and overlap in Farm/Industrial Scenes.
+  2) Cameras
+     - For example, `this.cameras.main.startFollow(...)` tracks the player.
+  3) Particle Effects
+     - Jump emitter and walking smoke (e.g. `this.add.particles(...)`).
+  4) Tilemaps
+     - Tiled JSON maps (farm.tmj, industrial.tmj, etc.) loaded via `this.add.tilemap()`.
+  5) Text Objects
+     - Title text, instructions, Game Over text (e.g. `this.add.text(...)` in coreScenes).
+  -------------------------------------
 */
 
 // Global variables
