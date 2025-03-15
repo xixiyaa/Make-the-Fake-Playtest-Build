@@ -29,14 +29,18 @@ class LoadFarm extends Phaser.Scene {
 
     // Load key
     this.load.image("key", "tile_0027.png");
+    //this.load.image("wallBG", "wall.jpg");
 
     // Load new character images instead of atlas
     this.load.image("character_stay", "character_stay.png");
     this.load.image("character_left", "character_left.png");
     this.load.image("character_right", "character_right.png");
 
+    this.load.image("monster_left", "monster_left.png");
+
     // Characters
-    this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
+    //this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
+    this.load.atlas("monster_left", "monster_left.png");
 
     // Tilemaps and tilesheets
     this.load.image("tilemap_tiles_background", "tilemap-backgrounds_packed.png");
@@ -116,8 +120,10 @@ class LoadIndustrial extends Phaser.Scene {
     this.load.audio("explode", "explode.ogg");
     this.load.audio("heart", "heart.ogg");
 
+
     this.load.image("tilemap_tiles_industrial", "tilemap_packed_industrial.png");
     this.load.image("back2", "back2.jpg");
+    this.load.image("car", "car.png");
 
     this.load.tilemapTiledJSON("industrial", "industrial.tmj");
     this.load.spritesheet("tilemap_sheet_industrial", "tilemap_packed_industrial.png", {

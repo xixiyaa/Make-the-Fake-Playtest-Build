@@ -39,11 +39,11 @@ let config = {
         LoadFarm,
         Farm,
         LoadFood,
-        Food,
+        //Food,
         LoadIndustrial,
         Industrial,
         LoadBonus,
-        Bonus,
+        //Bonus,
         GG
     ]
 };
