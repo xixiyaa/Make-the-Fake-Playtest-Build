@@ -84,11 +84,14 @@ class Farm extends Phaser.Scene {
 
     // Use the new character image for the player (starting with the "stay" texture)
     my.sprite.player = this.physics.add.sprite(30, 200, "character_stay");
-    my.sprite.player.setScale(0.2); // Adjust the value as needed
+    my.sprite.player.setScale(0.18); // Adjust the value as needed
     my.sprite.player.setCollideWorldBounds(true);
 
     // Enemy setup remains the same
-    my.sprite.enemy = this.physics.add.sprite(100, 250, "platformer_characters", "tile_0002.png");
+    //my.sprite.enemy = this.physics.add.sprite(100, 250, "platformer_characters", "tile_0002.png");
+    my.sprite.enemy = this.physics.add.sprite(100, 250, "monster_left");
+
+    my.sprite.enemy.setScale(0.2); // Adjust the value as needed
     my.sprite.enemy.setCollideWorldBounds(true);
     my.sprite.enemy.patrolBounds = { left: 100, right: 180 };
     my.sprite.enemy.patrolSpeed = 50;
@@ -522,13 +525,16 @@ class Industrial extends Phaser.Scene {
 
     // Create player with new image
     my.sprite.player = this.physics.add.sprite(30, 200, "character_stay");
-    my.sprite.player.setScale(0.2); // Adjust the value as needed
+    my.sprite.player.setScale(0.18); // Adjust the value as needed
     my.sprite.player.setCollideWorldBounds(true);
 
     this.enemies = this.physics.add.group();
+    //my.sprite.enemy = this.physics.add.sprite(100, 250, "car");
     const enemyPositions = [{ x: 130, y: 200 }, { x: 270, y: 250 }, { x: 450, y: 450 }, { x: 700, y: 300 }];
     enemyPositions.forEach(pos => {
-      let enemy = this.enemies.create(pos.x, pos.y, "platformer_characters", "tile_0021.png");
+      let enemy = this.enemies.create(pos.x, pos.y, "car");
+      enemy.setScale(0.2);
+
       enemy.setCollideWorldBounds(true);
       enemy.patrolBounds = { left: pos.x - 25, right: pos.x + 25 };
       enemy.patrolSpeed = 50;
