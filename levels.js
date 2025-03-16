@@ -118,7 +118,7 @@ class Farm extends Phaser.Scene {
 
     // this.HPText = this.add.text(50, 50, "HP:100", { fontFamily: 'Verdana, Geneva, sans-serif', fontSize: 10 });
     // this.scoreText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 26, score, { fontSize: '12px', fill: '#FFFFFF' });
-    // this.conditionText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 36, 'Collect all coins to spawn the key!', { fontSize: '12px', fill: '#FFFFFF' });
+    this.conditionText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 36, 'Collect all coins to spawn the key!', { fontSize: '12px', fill: '#FFFFFF' });
 
     this.physics.add.overlap(my.sprite.player, this.coinGroup, (obj1, obj2) => {
       obj2.destroy();
@@ -161,13 +161,20 @@ class Farm extends Phaser.Scene {
     let condEl = document.getElementById('conditionText');
     let someConditionTextHere = "Try to collect all coins!";
 
-  
-    // 2) Update them with your game values
-    // For example:
+
     hpEl.textContent = `HP: ${Math.floor(this.playerHP)}`;
     scoreEl.textContent = ` | Score: ${score}`;
     condEl.textContent = ` | ${someConditionTextHere}`;
-    // Enemy patrol logic remains the same
+
+    if (this.gameLost) {
+      // Allow restart but prevent any further movement or actions.
+      if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
+        this.scene.restart();
+      }
+      return; // Stop processing any further input or movement.
+    }
+    
+
     if (my.sprite.enemy && my.sprite.enemy.active) {
       if (my.sprite.enemy.x <= my.sprite.enemy.patrolBounds.left) {
         my.sprite.enemy.direction = 1;
@@ -322,7 +329,7 @@ class Industrial extends Phaser.Scene {
       frame: 44
     });
 
-    this.HPText = this.add.text(50, 50, "HP:100", { fontFamily: 'Verdana, Geneva, sans-serif', fontSize: 10 });
+    //this.HPText = this.add.text(50, 50, "HP:100", { fontFamily: 'Verdana, Geneva, sans-serif', fontSize: 10 });
 
     this.physics.world.enable(this.gas, Phaser.Physics.Arcade.STATIC_BODY);
     this.physics.world.enable(this.heart, Phaser.Physics.Arcade.STATIC_BODY);
@@ -370,7 +377,7 @@ class Industrial extends Phaser.Scene {
     this.physics.add.collider(this.enemies, this.groundLayer);
 
     //this.scoreText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 26, score, { fontSize: '12px', fill: '#FFFFFF' });
-    //this.conditionText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 36, 'Collect all gas to spawn the key!', { fontSize: '12px', fill: '#FFFFFF' });
+    this.conditionText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 36, 'Collect all gas to spawn the key!', { fontSize: '12px', fill: '#FFFFFF' });
     let someConditionTextHere = "Try to collect all gas!";
     let condEl = document.getElementById('conditionText');
     condEl.textContent = ` | ${someConditionTextHere}`;
@@ -405,6 +412,24 @@ class Industrial extends Phaser.Scene {
   }
 
   update() {
+    let hpEl = document.getElementById('hpText');
+    let scoreEl = document.getElementById('scoreText');
+    let condEl = document.getElementById('conditionText');
+    let someConditionTextHere = "Try to collect all gas!";
+
+    hpEl.textContent = `HP: ${Math.floor(this.playerHP)}`;
+    scoreEl.textContent = ` | Score: ${score}`;
+    condEl.textContent = ` | ${someConditionTextHere}`;
+
+    if (this.gameLost) {
+      // Allow restart but prevent any further movement or actions.
+      if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
+        this.scene.restart();
+      }
+      return; // Stop processing any further input or movement.
+    }
+    
+
     this.enemies.children.iterate(enemy => {
       if (enemy.x <= enemy.patrolBounds.left) {
         enemy.direction = 1;
@@ -486,7 +511,7 @@ class Industrial extends Phaser.Scene {
     }
     if (this.key.interactable && Phaser.Geom.Intersects.RectangleToRectangle(my.sprite.player.getBounds(), this.key.getBounds())) {
       this.key.destroy();
-      this.conditionText.setText('Congrats! Proceed to the right to the next scene.');
+      this.conditionText.setText('Congrats! Proceed to the right to pass the game.');
       keycountIndustrial++;
     }
 
