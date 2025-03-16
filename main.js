@@ -18,6 +18,9 @@
   5) Text Objects
      - Title text, instructions, Game Over text (e.g. `this.add.text(...)` in coreScenes).
   -------------------------------------
+  assets https://wreckitralph.fandom.com/wiki/Candy_Cane_Forest
+    -----https://wallpapers.com/wreck-it-ralph
+    -----WallpaperCat.com
 */
 
 // Global variables
