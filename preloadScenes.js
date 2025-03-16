@@ -1,12 +1,9 @@
 "use strict";
 
 /*
-  preloadScenes.js contains your "loading" scenes:
+  preloadScenes.js contains "loading" scenes:
   - LoadFarm
-  - LoadFood
   - LoadIndustrial
-  - LoadBonus
-
   These scenes load assets, then immediately start the next gameplay scene.
 */
 
@@ -22,7 +19,7 @@ class LoadFarm extends Phaser.Scene {
     this.load.setPath("./assets/");
     
     // Load audio
-    this.load.audio('jump2', 'Jump2.ogg');
+    this.load.audio('jump2', 'jump.wav');
     this.load.audio('collect', 'impactMetal_light_003.ogg');
     this.load.audio("explode", "explode.ogg");
     this.load.audio("heart", "heart.ogg");
@@ -86,7 +83,7 @@ class LoadFood extends Phaser.Scene {
 
   preload() {
     this.load.setPath("./assets/");
-    this.load.audio('jump2', 'Jump2.ogg');
+    this.load.audio('jump2', 'jump.wav');
     this.load.audio("explode", "explode.ogg");
     this.load.audio("heart", "heart.ogg");
 
@@ -116,7 +113,7 @@ class LoadIndustrial extends Phaser.Scene {
 
   preload() {
     this.load.setPath("./assets/");
-    this.load.audio('jump2', 'Jump2.ogg');
+    this.load.audio('jump2', 'jump.wav');
     this.load.audio("explode", "explode.ogg");
     this.load.audio("heart", "heart.ogg");
 
@@ -140,25 +137,3 @@ class LoadIndustrial extends Phaser.Scene {
   }
 }
 
-// -----------------------------------------------------
-// LoadBonus
-// -----------------------------------------------------
-class LoadBonus extends Phaser.Scene {
-  constructor() {
-    super("loadBonusScene");
-  }
-
-  preload() {
-    this.load.setPath("./assets/");
-    this.load.audio('jump2', 'Jump2.ogg');
-
-    this.load.tilemapTiledJSON("bonus", "bonus.tmj");
-  }
-
-  create() {
-    this.loadText = this.add.text(this.cameras.main.centerX, 150, 'Loading Bonus Level', { font: '40px Arial', fill: '#ffffff' }).setOrigin(0.5);
-    this.loadText = this.add.text(this.cameras.main.centerX, 200, 'Please wait...', { font: '20px Arial', fill: '#ffffff' }).setOrigin(0.5);
-
-    this.scene.start('bonusScene');
-  }
-}

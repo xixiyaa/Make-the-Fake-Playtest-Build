@@ -1,14 +1,10 @@
 "use strict";
 
 /*
-  levels.js contains your main gameplay scenes:
+  levels.js contains main gameplay scenes:
   - Farm
-  - Food
   - Industrial
-  - Bonus
-
-  The logic is identical to your original code except that we now use three static images
-  for the character: "character_stay", "character_left", and "character_right".
+  The logic is identical to our original code except that we now use three static images
 */
 
 // -----------------------------------------------------
@@ -90,8 +86,6 @@ class Farm extends Phaser.Scene {
     my.sprite.player.body.setOffset(30, 70);
 
 
-    // Enemy setup remains the same
-    //my.sprite.enemy = this.physics.add.sprite(100, 250, "platformer_characters", "tile_0002.png");
     my.sprite.enemy = this.physics.add.sprite(100, 250, "monster_left");
 
     my.sprite.enemy.setScale(0.2);
@@ -114,11 +108,7 @@ class Farm extends Phaser.Scene {
     this.physics.add.collider(this.key, this.groundLayer);
 
 
-
-
-    // this.HPText = this.add.text(50, 50, "HP:100", { fontFamily: 'Verdana, Geneva, sans-serif', fontSize: 10 });
-    // this.scoreText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 26, score, { fontSize: '12px', fill: '#FFFFFF' });
-    this.conditionText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 36, 'Collect all coins to spawn the key!', { fontSize: '12px', fill: '#FFFFFF' });
+    //this.conditionText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 36, 'Collect all coins to spawn the key!', { fontSize: '12px', fill: '#FFFFFF' });
 
     this.physics.add.overlap(my.sprite.player, this.coinGroup, (obj1, obj2) => {
       obj2.destroy();
@@ -195,16 +185,6 @@ class Farm extends Phaser.Scene {
       this.physics.pause();
     }
 
-    // this.HPText.setText("HP: " + Math.floor(this.playerHP));
-    // this.HPText.x = my.sprite.player.x - 28;
-    // this.HPText.y = my.sprite.player.y - 45;
-
-    // this.scoreText.setText(score);
-    // this.scoreText.x = my.sprite.player.x - 15;
-    // this.scoreText.y = my.sprite.player.y - 26;
-
-    // this.conditionText.x = my.sprite.player.x - 20;
-    // this.conditionText.y = my.sprite.player.y - 36;
 
     // Movement: Change texture based on input
     if (cursors.left.isDown) {
@@ -252,20 +232,6 @@ class Farm extends Phaser.Scene {
       this.scene.restart();
     }
 
-    if (this.coinGroup.getLength() === 0) {
-      this.key.visible = true;
-      this.key.interactable = true;
-      if (keycountFarm === 0) {
-        this.conditionText.setText('The key has spawned somewhere.');
-      }
-    }
-
-    if (this.key.interactable && Phaser.Geom.Intersects.RectangleToRectangle(my.sprite.player.getBounds(), this.key.getBounds())) {
-      this.key.destroy();
-      this.conditionText.setText('Congrats! Proceed to the right to the next scene.');
-      keycountFarm++;
-    }
-
     if (my.sprite.player.x > this.map.widthInPixels) {
       this.scene.start("loadIndustrialScene");
     }
@@ -298,7 +264,6 @@ class Industrial extends Phaser.Scene {
     this.add.image(0, 0, "back2").setOrigin(0, 0).setDepth(-1).setScrollFactor(0);
 
 
-    //this.tilesetBackground = this.map.addTilesetImage("tilemap-backgrounds_packed", "tilemap_tiles_background");
     this.tilesetIndustrial = this.map.addTilesetImage("tilemap_packed_industrial", "tilemap_tiles_industrial");
 
     this.collectSFX = this.sound.add('collect');
@@ -329,7 +294,6 @@ class Industrial extends Phaser.Scene {
       frame: 44
     });
 
-    //this.HPText = this.add.text(50, 50, "HP:100", { fontFamily: 'Verdana, Geneva, sans-serif', fontSize: 10 });
 
     this.physics.world.enable(this.gas, Phaser.Physics.Arcade.STATIC_BODY);
     this.physics.world.enable(this.heart, Phaser.Physics.Arcade.STATIC_BODY);
@@ -377,7 +341,7 @@ class Industrial extends Phaser.Scene {
     this.physics.add.collider(this.enemies, this.groundLayer);
 
     //this.scoreText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 26, score, { fontSize: '12px', fill: '#FFFFFF' });
-    this.conditionText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 36, 'Collect all gas to spawn the key!', { fontSize: '12px', fill: '#FFFFFF' });
+    //this.conditionText = this.add.text(my.sprite.player.x - 15, my.sprite.player.y - 36, 'Collect all gas to spawn the key!', { fontSize: '12px', fill: '#FFFFFF' });
     let someConditionTextHere = "Try to collect all gas!";
     let condEl = document.getElementById('conditionText');
     condEl.textContent = ` | ${someConditionTextHere}`;
@@ -446,16 +410,6 @@ class Industrial extends Phaser.Scene {
       this.physics.pause();
     }
 
-    // this.HPText.setText("HP: " + Math.floor(this.playerHP));
-    // this.HPText.x = my.sprite.player.x - 28;
-    // this.HPText.y = my.sprite.player.y - 45;
-
-    // this.scoreText.setText(score);
-    // this.scoreText.x = my.sprite.player.x - 15;
-    // this.scoreText.y = my.sprite.player.y - 26;
-
-    // this.conditionText.x = my.sprite.player.x - 20;
-    // this.conditionText.y = my.sprite.player.y - 36;
 
     // Movement: update texture based on input
     if (cursors.left.isDown) {
@@ -502,25 +456,10 @@ class Industrial extends Phaser.Scene {
       this.scene.restart();
     }
 
-    if (this.gasGroup.getLength() === 0) {
-      this.key.visible = true;
-      this.key.interactable = true;
-      if (keycountIndustrial === 0) {
-        this.conditionText.setText('The key has spawned somewhere.');
-      }
-    }
-    if (this.key.interactable && Phaser.Geom.Intersects.RectangleToRectangle(my.sprite.player.getBounds(), this.key.getBounds())) {
-      this.key.destroy();
-      this.conditionText.setText('Congrats! Proceed to the right to pass the game.');
-      keycountIndustrial++;
-    }
+
 
     if (my.sprite.player.x > this.map.widthInPixels) {
-      //if (keycountFarm && keycountFood && keycountIndustrial) {
-        //this.scene.start("loadBonusScene");
-      //} else {
         this.scene.start("ggScene");
-      //}
     }
   }
 }
