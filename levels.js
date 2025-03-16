@@ -20,7 +20,7 @@ class Farm extends Phaser.Scene {
   }
 
   init() {
-    this.ACCELERATION = 400;
+    this.ACCELERATION = 150;
     this.DRAG = 500;
     this.physics.world.gravity.y = 1500;
     this.JUMP_VELOCITY = -600;
@@ -84,14 +84,17 @@ class Farm extends Phaser.Scene {
 
     // Use the new character image for the player (starting with the "stay" texture)
     my.sprite.player = this.physics.add.sprite(30, 200, "character_stay");
-    my.sprite.player.setScale(0.18); // Adjust the value as needed
+    my.sprite.player.setScale(0.18); 
     my.sprite.player.setCollideWorldBounds(true);
+    my.sprite.player.body.setSize(80, 120);
+    my.sprite.player.body.setOffset(30, 70);
+
 
     // Enemy setup remains the same
     //my.sprite.enemy = this.physics.add.sprite(100, 250, "platformer_characters", "tile_0002.png");
     my.sprite.enemy = this.physics.add.sprite(100, 250, "monster_left");
 
-    my.sprite.enemy.setScale(0.2); // Adjust the value as needed
+    my.sprite.enemy.setScale(0.2);
     my.sprite.enemy.setCollideWorldBounds(true);
     my.sprite.enemy.patrolBounds = { left: 100, right: 180 };
     my.sprite.enemy.patrolSpeed = 50;
@@ -198,7 +201,7 @@ class Farm extends Phaser.Scene {
 
     // Movement: Change texture based on input
     if (cursors.left.isDown) {
-      my.sprite.player.setAccelerationX(-this.ACCELERATION);
+      my.sprite.player.setVelocityX(-this.ACCELERATION);
       my.sprite.player.setTexture("character_left");
       my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth / 2 - 10, my.sprite.player.displayHeight / 2 - 5);
       my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
@@ -206,7 +209,7 @@ class Farm extends Phaser.Scene {
         my.vfx.walking.start();
       }
     } else if (cursors.right.isDown) {
-      my.sprite.player.setAccelerationX(this.ACCELERATION);
+      my.sprite.player.setVelocityX(this.ACCELERATION);
       my.sprite.player.setTexture("character_right");
       my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth / 2 - 10, my.sprite.player.displayHeight / 2 - 5);
       my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
@@ -214,8 +217,8 @@ class Farm extends Phaser.Scene {
         my.vfx.walking.start();
       }
     } else {
-      my.sprite.player.setAccelerationX(0);
-      my.sprite.player.setDragX(this.DRAG);
+      my.sprite.player.setVelocityX(0);
+      //my.sprite.player.setDragX(this.DRAG);
       my.sprite.player.setTexture("character_stay");
       my.vfx.walking.stop();
     }
@@ -272,7 +275,7 @@ class Industrial extends Phaser.Scene {
   }
 
   init() {
-    this.ACCELERATION = 400;
+    this.ACCELERATION = 150;
     this.DRAG = 500;
     this.physics.world.gravity.y = 1500;
     this.JUMP_VELOCITY = -600;
@@ -331,6 +334,8 @@ class Industrial extends Phaser.Scene {
     my.sprite.player = this.physics.add.sprite(30, 200, "character_stay");
     my.sprite.player.setScale(0.18); // Adjust the value as needed
     my.sprite.player.setCollideWorldBounds(true);
+    my.sprite.player.body.setSize(80, 120);
+    my.sprite.player.body.setOffset(30, 70);
 
     this.enemies = this.physics.add.group();
     //my.sprite.enemy = this.physics.add.sprite(100, 250, "car");
@@ -429,7 +434,7 @@ class Industrial extends Phaser.Scene {
 
     // Movement: update texture based on input
     if (cursors.left.isDown) {
-      my.sprite.player.setAccelerationX(-this.ACCELERATION);
+      my.sprite.player.setVelocityX(-this.ACCELERATION);
       my.sprite.player.setTexture("character_left");
       my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth / 2 - 10, my.sprite.player.displayHeight / 2 - 5);
       my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
@@ -437,7 +442,7 @@ class Industrial extends Phaser.Scene {
         my.vfx.walking.start();
       }
     } else if (cursors.right.isDown) {
-      my.sprite.player.setAccelerationX(this.ACCELERATION);
+      my.sprite.player.setVelocityX(this.ACCELERATION);
       my.sprite.player.setTexture("character_right");
       my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth / 2 - 10, my.sprite.player.displayHeight / 2 - 5);
       my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
@@ -445,8 +450,8 @@ class Industrial extends Phaser.Scene {
         my.vfx.walking.start();
       }
     } else {
-      my.sprite.player.setAccelerationX(0);
-      my.sprite.player.setDragX(this.DRAG);
+      my.sprite.player.setVelocityX(0);
+      //my.sprite.player.setDragX(this.DRAG);
       my.sprite.player.setTexture("character_stay");
       my.vfx.walking.stop();
     }
